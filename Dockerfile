@@ -1,11 +1,13 @@
-FROM anapsix/alpine-java
+FROM openjdk:8u131-jdk
 
 ARG kafka_version=0.10.2.1
 ARG scala_version=2.12
 
-MAINTAINER wurstmeister
+MAINTAINER vberetti
 
-RUN apk add --update unzip wget curl docker jq coreutils
+RUN apt-get update && \
+    apt-get install -y unzip docker jq coreutils && \
+    apt-get clean
 
 ENV KAFKA_VERSION=$kafka_version SCALA_VERSION=$scala_version
 ADD download-kafka.sh /tmp/download-kafka.sh
